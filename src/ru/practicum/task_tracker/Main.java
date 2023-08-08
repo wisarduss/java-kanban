@@ -44,47 +44,50 @@ public class Main {
 
 
         System.out.println("Вывод всех задач");
-        taskManager.printAllTasks();
-        System.out.println();
+        System.out.println(taskManager.getAllEpics());
+        System.out.println(taskManager.getAllSubtasks());
+        System.out.println(taskManager.getAllTasks());
+        System.out.println("-------------------------------");
 
         System.out.println("Проверка поиска  по id");
-        taskManager.getTaskById(task2Id);
-        System.out.println();
-        taskManager.getSubtaskById(subtask4Id);
-        System.out.println();
-        taskManager.getEpicById(epicId2);
+        System.out.println(taskManager.getTaskById(task2Id));
+        System.out.println(taskManager.getSubtaskById(subtask4Id));
+        System.out.println(taskManager.getEpicById(epicId2));
         System.out.println("-------------------------------");
 
         System.out.println("Проверка на обновление");
-        taskManager.updateTask(new Task("Покушать", "Ты очень голодный", "NEW"), task1Id);
+        taskManager.updateTask(new Task("Позвонить маме", "У нее день рождение", task1Id, "NEW"));
+        System.out.println(taskManager.getAllTasks());
         taskManager.updateSubtask(new Subtask("Помыть окна", "Даже свет не попадает тебе в комнату",
-                "NEW", epicId2), subtask5Id);
-        taskManager.updateEpic(new Epic("Эпик", "Описание"), epicId2);
+                subtask4Id,"NEW", epicId2));
+        System.out.println(taskManager.getAllSubtasks());
+        taskManager.updateEpic(new Epic("Эпик","Описание", epicId2));
+        System.out.println(taskManager.getAllEpics());
+        System.out.println("-------------------------------");
 
-        taskManager.printAllTasks();
-        System.out.println();
 
         System.out.println("Получение подзадач определенного эпика");
-        taskManager.getAllSubtasksOfEpic(epicId1);
+        System.out.println(taskManager.getAllSubtasksOfEpic(epicId2));
         System.out.println();
+        System.out.println("-------------------------------");
 
         System.out.println("Удаление по индетификатору");
         taskManager.removeTaskById(task1Id);
+        System.out.println(taskManager.getAllTasks());
         taskManager.removeSubtaskById(subtask2Id);
+        System.out.println(taskManager.getAllSubtasks());
         taskManager.removeEpicById(epicId2);
-        taskManager.printAllTasks();
-        System.out.println();
+        System.out.println(taskManager.getAllEpics());
+        System.out.println("-------------------------------");
 
         System.out.println("Полное удаление");
         taskManager.removeTasks();
-        taskManager.printAllTasks();
-        System.out.println();
+        System.out.println(taskManager.getAllTasks());
         taskManager.removeSubtasks();
-        taskManager.printAllTasks();
-        System.out.println();
+        System.out.println(taskManager.getAllSubtasks());
         taskManager.removeEpics();
-        taskManager.printAllTasks();
-        System.out.println();
+        System.out.println(taskManager.getAllEpics());
+        System.out.println("-------------------------------");
 
     }
 }

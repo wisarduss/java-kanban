@@ -3,10 +3,15 @@ package ru.practicum.task_tracker.tasks;
 import java.util.ArrayList;
 
 public class Epic extends Task{
-    private ArrayList<Long> subtasksIds;
+    private final ArrayList<Long> subtasksIds;
 
     public Epic(String name, String description) {
         super(name, description, "NEW");
+        this.subtasksIds = new ArrayList<>();
+    }
+
+    public Epic(String name, String description, long id) {
+        super(name, description, id, "NEW");
         this.subtasksIds = new ArrayList<>();
     }
 

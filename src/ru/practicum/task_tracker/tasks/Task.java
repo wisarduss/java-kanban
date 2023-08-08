@@ -14,6 +14,13 @@ public class Task {
         this.progress = progress;
     }
 
+    public Task(String name, String description, long id, String progress) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
+        this.progress = progress;
+    }
+
     public String getName() {
         return name;
     }

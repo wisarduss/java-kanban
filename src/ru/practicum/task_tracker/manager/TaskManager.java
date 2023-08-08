@@ -1,6 +1,5 @@
 package ru.practicum.task_tracker.manager;
 
-import org.w3c.dom.ls.LSOutput;
 import ru.practicum.task_tracker.tasks.Epic;
 import ru.practicum.task_tracker.tasks.Subtask;
 import ru.practicum.task_tracker.tasks.Task;
@@ -38,31 +37,33 @@ public class TaskManager {
         return task.getId();
     }
 
-    public void updateTask(Task task, long taskId) {
-        Task saveTask = tasks.get(taskId);
+    public void updateTask(Task task) {
+        Task saveTask = tasks.get(task.getId());
         if (saveTask == null) {
             return;
         }
-        tasks.put(taskId, task);
+        saveTask.setName(task.getName());
+        saveTask.setDescription(task.getDescription());
+        saveTask.setProgress(task.getName());
     }
 
-    public void updateSubtask(Subtask subtask, long subtaskId) {
-        Subtask saveSubtask = subtasks.get(subtaskId);
+    public void updateSubtask(Subtask subtask) {
+        Subtask saveSubtask = subtasks.get(subtask.getId());
         long checkEpicId = subtask.getEpicId();
         if (saveSubtask == null || (subtask.getEpicId() != checkEpicId)) {
             return;
         }
-
-        subtasks.put(subtaskId, subtask);
+        saveSubtask.setName(subtask.getName());
+        saveSubtask.setDescription(subtask.getDescription());
+        saveSubtask.setProgress(subtask.getProgress());
         updateStatusEpic(subtask.getEpicId());
     }
 
-    public void updateEpic(Epic epic, long epicId) {
-        Epic saveEpic = epics.get(epicId);
+    public void updateEpic(Epic epic) {
+        Epic saveEpic = epics.get(epic.getId());
         if (saveEpic == null) {
             return;
         }
-
         saveEpic.setName(epic.getName());
         saveEpic.setDescription(epic.getDescription());
     }
@@ -94,12 +95,16 @@ public class TaskManager {
         epic.setProgress(progress);
     }
 
-    public void printAllTasks() {
-        printEpics();
-        System.out.println();
-        printSubtasks();
-        System.out.println();
-        printTasks();
+    public ArrayList<Task> getAllTasks() {
+        return new ArrayList<>(tasks.values());
+    }
+
+    public ArrayList<Subtask> getAllSubtasks() {
+        return new ArrayList<>(subtasks.values());
+    }
+
+    public ArrayList<Epic> getAllEpics() {
+        return new ArrayList<>(epics.values());
     }
 
     private long generateId() {
@@ -107,30 +112,8 @@ public class TaskManager {
     }
 
 
-    private void printEpics() {
-        System.out.println("все эпики");
-        for (Long id : epics.keySet()) {
-            System.out.println(epics.get(id));
-        }
-    }
-
-    private void printSubtasks() {
-        System.out.println("все подзадачи для эпиков");
-        for (Long id : subtasks.keySet()) {
-            System.out.println(subtasks.get(id));
-        }
-    }
-
-    private void printTasks() {
-        System.out.println("Все задачи");
-        for (Long id : tasks.keySet()) {
-            System.out.println(tasks.get(id));
-        }
-    }
-
     public void removeTasks() {
         tasks.clear();
-        System.out.println("Все задачи удалены");
     }
 
     public void removeSubtasks() {
@@ -141,57 +124,43 @@ public class TaskManager {
             updateStatusEpic(subtasks.get(id).getEpicId());
         }
         subtasks.clear();
-        System.out.println("Все подзадачи удалены");
     }
 
     public void removeEpics() {
         epics.clear();
         subtasks.clear();
-        System.out.println("Все эпики удалены");
     }
 
-    public void getTaskById(long taskId) {
-        if (!tasks.containsKey(taskId)) {
-            System.out.println("Задачи с id=" + taskId + " не существует");
-            return;
-        }
+    public Task getTaskById(long taskId) {
         for (Long id : tasks.keySet()) {
             if (id.equals(taskId)) {
-                System.out.println("Задача с таким id=" + id + " найдена");
-                System.out.println(tasks.get(id));
+                return tasks.get(id);
             }
         }
+        return null;
     }
 
-    public void getSubtaskById(long subtaskId) {
-        if (!subtasks.containsKey(subtaskId)) {
-            System.out.println("Подзадачи с id=" + subtaskId + " не существует");
-            return;
-        }
+    public Subtask getSubtaskById(long subtaskId) {
         for (Long id : subtasks.keySet()) {
             if (id.equals(subtaskId)) {
-                System.out.println("Подзадача с таким id=" + id + " найдена");
-                System.out.println(subtasks.get(id));
+                return subtasks.get(id);
             }
         }
+        return null;
     }
 
-    public void getEpicById(long epicId) {
-        if (!epics.containsKey(epicId)) {
-            System.out.println("Эпик с id=" + epicId + " не существует");
-            return;
-        }
+    public Epic getEpicById(long epicId) {
         for (Long id : epics.keySet()) {
             if (id.equals(epicId)) {
-                System.out.println("Эпик с таким id=" + epicId + " найден");
-                System.out.println(epics.get(id));
+                return epics.get(id);
             }
         }
+        return null;
     }
 
     public void removeTaskById(long taskId) {
         if (!tasks.containsKey(taskId)) {
-            System.out.println("Задачи с id=" + taskId + " нет");
+            return;
         }
 
         tasks.remove(taskId);
@@ -217,17 +186,14 @@ public class TaskManager {
         epics.remove(epicId);
     }
 
-    public void getAllSubtasksOfEpic(long epicId) {
-        for (Long id : epics.keySet()) {
-            if (id.equals(epicId)) {
-                System.out.println(epics.get(id));
-            }
-        }
+    public ArrayList<Subtask> getAllSubtasksOfEpic(long epicId) {
+        ArrayList<Subtask> subtasksOfEpicId = new ArrayList<>();
         for (Long id : subtasks.keySet()) {
             if (subtasks.get(id).getEpicId() == epicId) {
-                System.out.println(subtasks.get(id));
+                subtasksOfEpicId.add(subtasks.get(id));
             }
         }
+        return subtasksOfEpicId;
     }
 
 }
