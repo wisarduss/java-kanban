@@ -74,10 +74,11 @@ public class Main {
         System.out.println("Удаление по индетификатору");
         taskManager.removeTaskById(task1Id);
         System.out.println(taskManager.getAllTasks());
-        taskManager.removeSubtaskById(subtask2Id);
+        taskManager.removeSubtaskById(subtask1Id);
         System.out.println(taskManager.getAllSubtasks());
         taskManager.removeEpicById(epicId2);
         System.out.println(taskManager.getAllEpics());
+        System.out.println(taskManager.getAllSubtasks());
         System.out.println("-------------------------------");
 
         System.out.println("Полное удаление");

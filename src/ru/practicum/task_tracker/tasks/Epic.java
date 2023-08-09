@@ -27,11 +27,6 @@ public class Epic extends Task{
         subtasksIds.clear();
     }
 
-    public void removeById(Long subtaskId) {
-        for (int i = 0; i < subtasksIds.size(); i++) {
-            subtasksIds.remove(subtaskId);
-        }
-    }
 
     @Override
     public String toString() {
