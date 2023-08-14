@@ -6,12 +6,12 @@ public class Epic extends Task{
     private final ArrayList<Long> subtasksIds;
 
     public Epic(String name, String description) {
-        super(name, description, "NEW");
+        super(name, description, Status.NEW);
         this.subtasksIds = new ArrayList<>();
     }
 
     public Epic(String name, String description, long id) {
-        super(name, description, id, "NEW");
+        super(name, description, id, Status.NEW);
         this.subtasksIds = new ArrayList<>();
     }
 
@@ -34,7 +34,7 @@ public class Epic extends Task{
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +
-                ", progress='" + progress + '\'' +
+                ", progress='" + status + '\'' +
                 '}';
     }
 }

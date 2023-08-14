@@ -1,17 +1,15 @@
 package ru.practicum.task_tracker.tasks;
 
-import java.util.Objects;
-
 public class Subtask extends Task {
     private final long epicId;
 
-    public Subtask(String name, String description, String progress, Long epicId) {
-        super(name, description, progress);
+    public Subtask(String name, String description, Status status, Long epicId) {
+        super(name, description, status);
         this.epicId = epicId;
     }
 
-    public Subtask(String name, String description, long id, String progress, long epicId) {
-        super(name, description, id, progress);
+    public Subtask(String name, String description, long id, Status status, long epicId) {
+        super(name, description, id, status);
         this.epicId = epicId;
     }
 
@@ -25,7 +23,7 @@ public class Subtask extends Task {
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +
-                ", progress='" + progress + '\'' +
+                ", progress='" + status + '\'' +
                 ", epicId='" + epicId + '\'' +
                 '}';
     }

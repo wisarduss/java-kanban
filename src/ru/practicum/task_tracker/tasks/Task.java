@@ -1,24 +1,22 @@
 package ru.practicum.task_tracker.tasks;
 
-import java.util.Objects;
-
 public class Task {
     protected String name;
     protected String description;
     protected long id;
-    protected String progress;
+    protected Status status;
 
-    public Task(String name, String description, String progress) {
+    public Task(String name, String description, Status status) {
         this.name = name;
         this.description = description;
-        this.progress = progress;
+        this.status = status;
     }
 
-    public Task(String name, String description, long id, String progress) {
+    public Task(String name, String description, long id, Status status) {
         this.name = name;
         this.description = description;
         this.id = id;
-        this.progress = progress;
+        this.status = status;
     }
 
     public String getName() {
@@ -45,12 +43,12 @@ public class Task {
         this.id = id;
     }
 
-    public String getProgress() {
-        return progress;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setProgress(String progress) {
-        this.progress = progress;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
@@ -59,7 +57,7 @@ public class Task {
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +
-                ", progress='" + progress + '\'' +
+                ", progress='" + status + '\'' +
                 '}';
     }
 
