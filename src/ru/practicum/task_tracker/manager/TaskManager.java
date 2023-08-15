@@ -4,51 +4,47 @@ import ru.practicum.task_tracker.tasks.Epic;
 import ru.practicum.task_tracker.tasks.Subtask;
 import ru.practicum.task_tracker.tasks.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
 
+    long addNewEpic(Epic epic);
 
-     long addNewEpic(Epic epic);
+    Long addNewSubtask(Subtask subtask);
 
-     Long addNewSubtask(Subtask subtask);
+    Long addNewTask(Task task);
 
-     Long addNewTask(Task task);
+    void updateTask(Task task);
 
-     void updateTask(Task task);
+    void updateSubtask(Subtask subtask);
 
-     void updateSubtask(Subtask subtask);
+    void updateEpic(Epic epic);
 
-     void updateEpic(Epic epic);
+    List<Task> getAllTasks();
 
+    List<Subtask> getAllSubtasks();
 
-     ArrayList<Task> getAllTasks();
+    List<Epic> getAllEpics();
 
-     ArrayList<Subtask> getAllSubtasks();
+    void removeTasks();
 
-     ArrayList<Epic> getAllEpics();
+    void removeSubtasks();
 
-     void removeTasks();
+    void removeEpics();
 
-     void removeSubtasks();
+    Task getTaskById(long taskId);
 
-     void removeEpics();
+    Subtask getSubtaskById(long subtaskId);
 
-     Task getTaskById(long taskId);
+    Epic getEpicById(long epicId);
 
-     Subtask getSubtaskById(long subtaskId);
+    void removeTaskById(long taskId);
 
-     Epic getEpicById(long epicId);
+    void removeSubtaskById(long subtaskId);
 
-     void removeTaskById(long taskId);
+    void removeEpicById(long epicId);
 
-     void removeSubtaskById(long subtaskId);
+    List<Subtask> getAllSubtasksOfEpic(long epicId);
 
-
-     void removeEpicById(long epicId);
-
-     ArrayList<Subtask> getAllSubtasksOfEpic(long epicId);
-
-     List<Task> getHistory();
+    List<Task> getHistory();
 }

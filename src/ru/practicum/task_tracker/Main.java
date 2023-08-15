@@ -19,7 +19,6 @@ public class Main {
         Epic epic2 = new Epic("Убраться в квартитре", "В доме слишком пыльно и все вещи разбросаны");
         Long epicId2 = taskManager.addNewEpic(epic2);
 
-
         Subtask subtask1 = new Subtask("Собрать коробки", "Положить в них все вещи для переезда ",
                 Status.IN_PROGRESS, epicId1);
         Long subtask1Id = taskManager.addNewSubtask(subtask1);
@@ -37,13 +36,11 @@ public class Main {
                 Status.DONE, epicId2);
         Long subtask5Id = taskManager.addNewSubtask(subtask5);
 
-
         Task task1 = new Task("погулять", "заплывешь жиром", Status.NEW);
         Long task1Id = taskManager.addNewTask(task1);
 
         Task task2 = new Task("спать", "нужен сон", Status.NEW);
         Long task2Id = taskManager.addNewTask(task2);
-
 
         System.out.println("Вывод всех задач");
         System.out.println(taskManager.getAllEpics());
@@ -69,7 +66,6 @@ public class Main {
         System.out.println(taskManager.getAllEpics());
         System.out.println("-------------------------------");
 
-
         System.out.println("Получение подзадач определенного эпика");
         System.out.println(taskManager.getAllSubtasksOfEpic(epicId2));
         System.out.println();
@@ -93,6 +89,5 @@ public class Main {
         taskManager.removeEpics();
         System.out.println(taskManager.getAllEpics());
         System.out.println("-------------------------------");
-
     }
 }

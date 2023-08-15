@@ -105,24 +105,23 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Task> getAllTasks() {
+    public List<Task> getAllTasks() {
         return new ArrayList<>(tasks.values());
     }
 
     @Override
-    public ArrayList<Subtask> getAllSubtasks() {
+    public List<Subtask> getAllSubtasks() {
         return new ArrayList<>(subtasks.values());
     }
 
     @Override
-    public ArrayList<Epic> getAllEpics() {
+    public List<Epic> getAllEpics() {
         return new ArrayList<>(epics.values());
     }
 
     private long generateId() {
         return generatorId++;
     }
-
 
     @Override
     public void removeTasks() {
@@ -197,8 +196,8 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Subtask> getAllSubtasksOfEpic(long epicId) {
-        ArrayList<Subtask> subtasksOfEpicId = new ArrayList<>();
+    public List<Subtask> getAllSubtasksOfEpic(long epicId) {
+        List<Subtask> subtasksOfEpicId = new ArrayList<>();
         for (Long id : subtasks.keySet()) {
             if (subtasks.get(id).getEpicId() == epicId) {
                 subtasksOfEpicId.add(subtasks.get(id));
