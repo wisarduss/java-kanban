@@ -54,15 +54,17 @@ public class Main {
         System.out.println(taskManager.getEpicById(epicId2));
         System.out.println("-------------------------------");
         System.out.println(taskManager.getHistory());
+        System.out.println(taskManager.getTaskById(task2Id));
+        System.out.println(taskManager.getHistory());
         System.out.println();
 
         System.out.println("Проверка на обновление");
         taskManager.updateTask(new Task("Позвонить маме", "У нее день рождение", task1Id, Status.NEW));
         System.out.println(taskManager.getAllTasks());
         taskManager.updateSubtask(new Subtask("Помыть окна", "Даже свет не попадает тебе в комнату",
-                subtask4Id,Status.NEW, epicId2));
+                subtask4Id, Status.NEW, epicId2));
         System.out.println(taskManager.getAllSubtasks());
-        taskManager.updateEpic(new Epic("Эпик","Описание", epicId2));
+        taskManager.updateEpic(new Epic("Эпик", "Описание", epicId2));
         System.out.println(taskManager.getAllEpics());
         System.out.println("-------------------------------");
 
@@ -80,7 +82,10 @@ public class Main {
         System.out.println(taskManager.getAllEpics());
         System.out.println(taskManager.getAllSubtasks());
         System.out.println("-------------------------------");
+        taskManager.removeTaskById(task2Id);
+        System.out.println(taskManager.getHistory());
 
+        System.out.println("-------------------------------");
         System.out.println("Полное удаление");
         taskManager.removeTasks();
         System.out.println(taskManager.getAllTasks());

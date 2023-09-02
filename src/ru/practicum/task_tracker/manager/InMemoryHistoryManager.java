@@ -3,26 +3,79 @@ package ru.practicum.task_tracker.manager;
 import ru.practicum.task_tracker.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private static final int LIMIT = 10;
-    private static final int FIRST_ELEMENT = 0;
-    private final List<Task> history = new ArrayList<>();
+    private final Map<Long, Node> nodeMap = new HashMap<>();
+
+    private Node first;
+    private Node last;
+
+    @Override
+    public void remove(long id) {
+        Node node = nodeMap.remove(id);
+        if (node == null) {
+            return;
+        }
+
+        removeNode(node);
+    }
 
     @Override
     public void addTask(Task task) {
         if (task == null) {
             return;
         }
-        history.add(task);
-        if (history.size() > LIMIT) {
-            history.remove(FIRST_ELEMENT);
+
+        long id = task.getId();
+        remove(id);
+        linkLast(task);
+        nodeMap.put(id, last);
+    }
+
+    private void linkLast(Task task) {
+        Node node = new Node(task, last, null);
+        if (first == null) {
+            first = node;
+        } else {
+            last.next = node;
         }
+
+        last = node;
     }
 
     @Override
     public List<Task> getHistory() {
-        return new ArrayList<>(history);
+        return getTasks();
+    }
+
+    private List<Task> getTasks() {
+        List<Task> tasks = new ArrayList<>();
+        Node node = first;
+        while (node != null) {
+            tasks.add(node.value);
+            node = node.next;
+        }
+        return tasks;
+    }
+
+    private void removeNode(Node node) {
+        if (node.prev != null) {
+            node.prev.next = node.next;
+            if (node.next == null) {
+                last = node.prev;
+            } else {
+                node.next.prev = node.prev;
+            }
+        } else {
+            first = node.next;
+            if (first == null) {
+                last = null;
+            } else {
+                first.prev = null;
+            }
+        }
     }
 }
