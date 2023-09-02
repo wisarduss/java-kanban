@@ -55,8 +55,10 @@ public class Main {
         System.out.println("-------------------------------");
         System.out.println(taskManager.getHistory());
         System.out.println(taskManager.getTaskById(task2Id));
+        taskManager.removeTasks();
         System.out.println(taskManager.getHistory());
         System.out.println();
+        System.out.println(taskManager.getHistory());
 
         System.out.println("Проверка на обновление");
         taskManager.updateTask(new Task("Позвонить маме", "У нее день рождение", task1Id, Status.NEW));
@@ -74,7 +76,6 @@ public class Main {
         System.out.println("-------------------------------");
 
         System.out.println("Удаление по индетификатору");
-        taskManager.removeTaskById(task1Id);
         System.out.println(taskManager.getAllTasks());
         taskManager.removeSubtaskById(subtask1Id);
         System.out.println(taskManager.getAllSubtasks());
@@ -83,6 +84,7 @@ public class Main {
         System.out.println(taskManager.getAllSubtasks());
         System.out.println("-------------------------------");
         taskManager.removeTaskById(task2Id);
+        taskManager.removeSubtasks();
         System.out.println(taskManager.getHistory());
 
         System.out.println("-------------------------------");
