@@ -1,6 +1,5 @@
 package ru.practicum.task_tracker;
 
-
 import ru.practicum.task_tracker.manager.Managers;
 import ru.practicum.task_tracker.manager.TaskManager;
 import ru.practicum.task_tracker.tasks.Epic;
@@ -13,7 +12,8 @@ public class Main {
     public static void main(String[] args) {
         TaskManager taskManager = Managers.getDefault();
 
-        Epic epic1 = new Epic("Переезд", "Нужно сделать все необходимое, для переезда");
+
+        Epic epic1 = new Epic("Переезд", "Нужно сделать все необходимое для переезда");
         Long epicId1 = taskManager.addNewEpic(epic1);
 
         Epic epic2 = new Epic("Убраться в квартитре", "В доме слишком пыльно и все вещи разбросаны");
@@ -23,15 +23,18 @@ public class Main {
                 Status.IN_PROGRESS, epicId1);
         Long subtask1Id = taskManager.addNewSubtask(subtask1);
 
-        Subtask subtask2 = new Subtask("Упаковать кошку", "Положить ее в переноску", Status.NEW, epicId1);
+        Subtask subtask2 = new Subtask("Упаковать кошку", "Положить ее в переноску", Status.NEW,
+                epicId1);
         Long subtask2Id = taskManager.addNewSubtask(subtask2);
 
-        Subtask subtask3 = new Subtask("Сказать слова на прощание", "Попрощатсья с соседями", Status.NEW, epicId1);
+        Subtask subtask3 = new Subtask("Сказать слова на прощание", "Попрощатсья с соседями",
+                Status.NEW, epicId1);
         Long subtask3Id = taskManager.addNewSubtask(subtask3);
 
         Subtask subtask4 = new Subtask("Помыть полы", "У нас же вроде был белый ламинат...",
                 Status.DONE, epicId2);
         Long subtask4Id = taskManager.addNewSubtask(subtask4);
+
         Subtask subtask5 = new Subtask("Убрать вещи в шкаф", "А шкаф то полностью пустой...",
                 Status.DONE, epicId2);
         Long subtask5Id = taskManager.addNewSubtask(subtask5);
@@ -96,5 +99,6 @@ public class Main {
         System.out.println(taskManager.getAllEpics());
         System.out.println(taskManager.getHistory());
         System.out.println("-------------------------------");
+
     }
 }

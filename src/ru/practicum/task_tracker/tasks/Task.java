@@ -5,6 +5,7 @@ public class Task {
     protected String description;
     protected long id;
     protected Status status;
+    protected TaskType taskType;
 
     public Task(String name, String description, Status status) {
         this.name = name;
@@ -17,6 +18,18 @@ public class Task {
         this.description = description;
         this.id = id;
         this.status = status;
+    }
+
+    public Task(long id, TaskType taskType, String name, Status status, String description) {
+        this.id = id;
+        this.taskType = taskType;
+        this.name = name;
+        this.status = status;
+        this.description = description;
+    }
+
+    public TaskType getType() {
+        return TaskType.TASK;
     }
 
     public String getName() {

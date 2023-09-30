@@ -48,4 +48,12 @@ public interface TaskManager {
     List<Subtask> getAllSubtasksOfEpic(long epicId);
 
     List<Task> getHistory();
+
+    List<Task> getTasks();
+
+    List<Subtask> getSubtasks();
+
+    List<Epic> getEpics();
+
+    HistoryManager getHistoryManager();
 }
