@@ -1,6 +1,6 @@
-package ru.practicum.task_tracker.manager;
+package ru.practicum.tracker.manager;
 
-import ru.practicum.task_tracker.tasks.Task;
+import ru.practicum.tracker.tasks.Task;
 
 public class Node {
     Task value;

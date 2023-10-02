@@ -1,6 +1,6 @@
-package ru.practicum.task_tracker.manager;
+package ru.practicum.tracker.manager;
 
-import ru.practicum.task_tracker.tasks.Task;
+import ru.practicum.tracker.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,14 +1,19 @@
-package ru.practicum.task_tracker.manager;
+package ru.practicum.tracker.manager;
 
-import ru.practicum.task_tracker.Exception.ManagerSaveException;
-import ru.practicum.task_tracker.tasks.*;
+import ru.practicum.tracker.exception.ManagerSaveException;
+import ru.practicum.tracker.tasks.Epic;
+import ru.practicum.tracker.tasks.Subtask;
+import ru.practicum.tracker.tasks.Task;
+import ru.practicum.tracker.tasks.TaskType;
+import ru.practicum.tracker.tasks.Status;
+
 
 import java.io.*;
 
 import java.util.List;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
-    private static final String PATH = "C:\\Users\\Максим\\Desktop\\dev\\java-kanban\\tasks.txt";
+    private static final String PATH = "tasks.txt";
     private final File file;
 
     public FileBackedTasksManager(File file) {
@@ -21,7 +26,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             br.readLine();
             String line;
             while ((line = br.readLine()) != null && br.ready() && !line.isBlank()) {
-                Task task = SCVFormatter.fromString(line);
+                Task task = SCVFormatterUtils.fromString(line);
                 if (task.getType().equals(TaskType.TASK)) {
                     newTaskManager.addNewTask(task);
                 }
@@ -33,7 +38,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 }
             }
             line = br.readLine();
-            List<Integer> history = SCVFormatter.historyFromString(line);
+            final List<Integer> history = SCVFormatterUtils.historyFromString(line);
             for (Integer id : history) {
                 for (Task task : newTaskManager.getTasks()) {
                     if (task.getId() == id) {
@@ -52,7 +57,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 }
             }
         } catch (IOException e) {
-            throw new ManagerSaveException(e.getMessage());
+            throw new ManagerSaveException("Ошибка при чтении файла в методе loadFromFile");
         }
         return newTaskManager;
     }
@@ -62,27 +67,27 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             writer.write("id,type,name,status,description,epic\n");
             if (!getEpics().isEmpty()) {
                 for (Epic epic : getEpics()) {
-                    writer.write(SCVFormatter.toString(epic) + "\n");
+                    writer.write(SCVFormatterUtils.toString(epic) + "\n");
                 }
             }
             if (!getSubtasks().isEmpty()) {
                 for (Subtask subtask : getSubtasks()) {
-                    writer.write(SCVFormatter.toString(subtask) + "\n");
+                    writer.write(SCVFormatterUtils.toString(subtask) + "\n");
                 }
             }
             if (!getTasks().isEmpty()) {
                 for (Task task : getTasks()) {
-                    writer.write(SCVFormatter.toString(task) + "\n");
+                    writer.write(SCVFormatterUtils.toString(task) + "\n");
                 }
             }
 
 
             writer.write(System.lineSeparator());
             if (getHistoryManager().getHistory() != null) {
-                writer.write(SCVFormatter.historyToString(super.getHistoryManager()) + "\n");
+                writer.write(SCVFormatterUtils.historyToString(super.getHistoryManager()) + "\n");
             }
         } catch (IOException e) {
-            throw new ManagerSaveException(e.getMessage());
+            throw new ManagerSaveException("Ошибка при чтении файла в методе loadFromFile");
         }
     }
 

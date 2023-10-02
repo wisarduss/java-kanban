@@ -1,4 +1,4 @@
-package ru.practicum.task_tracker.tasks;
+package ru.practicum.tracker.tasks;
 
 public class Subtask extends Task {
     private final long epicId;

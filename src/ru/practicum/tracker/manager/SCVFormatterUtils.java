@@ -1,11 +1,15 @@
-package ru.practicum.task_tracker.manager;
+package ru.practicum.tracker.manager;
 
-import ru.practicum.task_tracker.tasks.*;
+import ru.practicum.tracker.tasks.Status;
+import ru.practicum.tracker.tasks.Subtask;
+import ru.practicum.tracker.tasks.Task;
+import ru.practicum.tracker.tasks.TaskType;
+import ru.practicum.tracker.tasks.Epic;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SCVFormatter {
+public class SCVFormatterUtils {
 
     public static String toString(Task task) {
         if (task != null) {

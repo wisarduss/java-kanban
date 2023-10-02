@@ -1,11 +1,11 @@
-package ru.practicum.task_tracker;
+package ru.practicum.tracker;
 
-import ru.practicum.task_tracker.manager.Managers;
-import ru.practicum.task_tracker.manager.TaskManager;
-import ru.practicum.task_tracker.tasks.Epic;
-import ru.practicum.task_tracker.tasks.Status;
-import ru.practicum.task_tracker.tasks.Subtask;
-import ru.practicum.task_tracker.tasks.Task;
+import ru.practicum.tracker.manager.Managers;
+import ru.practicum.tracker.manager.TaskManager;
+import ru.practicum.tracker.tasks.Epic;
+import ru.practicum.tracker.tasks.Status;
+import ru.practicum.tracker.tasks.Subtask;
+import ru.practicum.tracker.tasks.Task;
 
 public class Main {
 
@@ -99,6 +99,5 @@ public class Main {
         System.out.println(taskManager.getAllEpics());
         System.out.println(taskManager.getHistory());
         System.out.println("-------------------------------");
-
     }
 }
