@@ -6,21 +6,27 @@ import ru.practicum.tracker.tasks.Task;
 import ru.practicum.tracker.tasks.TaskType;
 import ru.practicum.tracker.tasks.Epic;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class SCVFormatterUtils {
 
     public static String toString(Task task) {
         if (task != null) {
             if (task.getType() == TaskType.valueOf("SUBTASK")) {
-                return String.format("%d,%s,%s,%s,%s,%d,", task.getId(),
+                return String.format("%d,%s,%s,%s,%s,%s,%d,%d,", task.getId(),
                         task.getType(), task.getName(),
-                        task.getStatus(), task.getDescription(), ((Subtask) task).getEpicId());
+                        task.getStatus(), task.getDescription(), task.getStartTime(), task.getDuration(),
+                        ((Subtask) task).getEpicId()
+                );
             }
-            return String.format("%d,%s,%s,%s,%s,", task.getId(),
+            return String.format("%d,%s,%s,%s,%s,%s,%d,", task.getId(),
                     task.getType(), task.getName(),
-                    task.getStatus(), task.getDescription());
+                    task.getStatus(), task.getDescription(),
+                    task.getStartTime(), task.getDuration());
         }
         return null;
     }
@@ -32,20 +38,37 @@ public class SCVFormatterUtils {
         Status status = Status.valueOf(tokens[3]);
         String desc = tokens[4];
         long epicId = 0;
-        if (tokens.length == 6) {
-            if (!tokens[5].isEmpty()) {
-                epicId = Long.parseLong(tokens[5]);
+        if (tokens.length == 8) {
+            if (!tokens[7].isEmpty()) {
+                epicId = Long.parseLong(tokens[7]);
             }
         }
         TaskType type = TaskType.valueOf(tokens[1]);
-
         switch (type) {
             case TASK:
-                return new Task(id, type, name, status, desc);
+                if (Objects.equals(tokens[5], "null") && Objects.equals(tokens[6], "null")) {
+                    return new Task(id, type, name, status, desc);
+                } else {
+                    LocalDateTime startTime = LocalDateTime.parse(tokens[5]);
+                    long duration = Long.parseLong(tokens[6]);
+                    return new Task(id, type, name, status, desc, startTime, duration);
+                }
             case SUBTASK:
-                return new Subtask(id, type, name, status, desc, epicId);
+                if (Objects.equals(tokens[5], "null") && Objects.equals(tokens[6], "null")) {
+                    return new Subtask(id, type, name, status, desc, epicId);
+                } else {
+                    LocalDateTime startTime = LocalDateTime.parse(tokens[5]);
+                    long duration = Long.parseLong(tokens[6]);
+                    return new Subtask(id, type, name, status, desc, epicId, startTime, duration);
+                }
             case EPIC:
-                return new Epic(id, type, name, status, desc);
+                if (Objects.equals(tokens[5], "null") && Objects.equals(tokens[6], "null")) {
+                    return new Epic(id, type, name, status, desc);
+                } else {
+                    LocalDateTime startTime = LocalDateTime.parse(tokens[5]);
+                    long duration = Long.parseLong(tokens[6]);
+                    return new Epic(id, type, name, status, desc, startTime, duration);
+                }
         }
         return null;
     }
@@ -63,10 +86,12 @@ public class SCVFormatterUtils {
 
     public static List<Integer> historyFromString(String value) {
         List<Integer> id = new ArrayList<>();
-        String[] tokens = value.split(",");
+        if (!value.isEmpty()) {
+            String[] tokens = value.split(",");
 
-        for (String token : tokens) {
-            id.add(Integer.parseInt(token));
+            for (String token : tokens) {
+                id.add(Integer.parseInt(token));
+            }
         }
         return id;
     }

@@ -1,10 +1,25 @@
 package ru.practicum.tracker.tasks;
 
+import java.time.LocalDateTime;
+import java.util.Objects;
+
 public class Subtask extends Task {
     private final long epicId;
 
+
     public Subtask(String name, String description, Status status, Long epicId) {
         super(name, description, status);
+        this.epicId = epicId;
+    }
+
+    public Subtask(String name, String description, Status status, Long epicId, LocalDateTime startTime, Long duration) {
+        super(name, description, status, startTime, duration);
+        this.epicId = epicId;
+    }
+
+    public Subtask(String name, String description, long id, Status status, long epicId,
+                   LocalDateTime startTime, Long duration) {
+        super(name, description, id, status, startTime, duration);
         this.epicId = epicId;
     }
 
@@ -18,8 +33,14 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
+    public Subtask(long id, TaskType taskType, String name, Status status, String description, long epicId,
+                   LocalDateTime startTime, Long duration) {
+        super(id, taskType, name, status, description, startTime, duration);
+        this.epicId = epicId;
+    }
+
     @Override
-    public TaskType getType (){
+    public TaskType getType() {
         return TaskType.SUBTASK;
     }
 
@@ -33,8 +54,49 @@ public class Subtask extends Task {
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +
-                ", progress='" + status + '\'' +
-                ", epicId='" + epicId + '\'' +
+                ", status=" + status +
+                ", taskType=" + taskType +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Subtask subtask = (Subtask) o;
+        return epicId == subtask.epicId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), epicId);
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return super.getEndTime();
+    }
+
+    @Override
+    public LocalDateTime getStartTime() {
+        return super.getStartTime();
+    }
+
+    @Override
+    public void setStartTime(LocalDateTime startTime) {
+        super.setStartTime(startTime);
+    }
+
+    @Override
+    public Long getDuration() {
+        return super.getDuration();
+    }
+
+    @Override
+    public void setDuration(long duration) {
+        super.setDuration(duration);
     }
 }

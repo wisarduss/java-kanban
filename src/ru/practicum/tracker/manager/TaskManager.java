@@ -20,12 +20,6 @@ public interface TaskManager {
 
     void updateEpic(Epic epic);
 
-    List<Task> getAllTasks();
-
-    List<Subtask> getAllSubtasks();
-
-    List<Epic> getAllEpics();
-
     void removeTasks();
 
     void removeSubtasks();
@@ -55,4 +49,12 @@ public interface TaskManager {
     List<Epic> getEpics();
 
     HistoryManager getHistoryManager();
+
+    void calculateStartTimeForEpic(long epicId);
+
+    void calculateDurationForEpic(long epicId);
+
+    void calculateEndTimeForEpic(long epicId);
+
+
 }

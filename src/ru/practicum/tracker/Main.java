@@ -46,9 +46,9 @@ public class Main {
         Long task2Id = taskManager.addNewTask(task2);
 
         System.out.println("Вывод всех задач");
-        System.out.println(taskManager.getAllEpics());
-        System.out.println(taskManager.getAllSubtasks());
-        System.out.println(taskManager.getAllTasks());
+        System.out.println(taskManager.getEpics());
+        System.out.println(taskManager.getSubtasks());
+        System.out.println(taskManager.getTasks());
         System.out.println("-------------------------------");
 
         System.out.println("Проверка поиска  по id");
@@ -64,12 +64,12 @@ public class Main {
 
         System.out.println("Проверка на обновление");
         taskManager.updateTask(new Task("Позвонить маме", "У нее день рождение", task1Id, Status.NEW));
-        System.out.println(taskManager.getAllTasks());
+        System.out.println(taskManager.getTasks());
         taskManager.updateSubtask(new Subtask("Помыть окна", "Даже свет не попадает тебе в комнату",
                 subtask4Id, Status.NEW, epicId2));
-        System.out.println(taskManager.getAllSubtasks());
+        System.out.println(taskManager.getSubtasks());
         taskManager.updateEpic(new Epic("Эпик", "Описание", epicId2));
-        System.out.println(taskManager.getAllEpics());
+        System.out.println(taskManager.getEpics());
         System.out.println("-------------------------------");
 
         System.out.println("Получение подзадач определенного эпика");
@@ -78,12 +78,12 @@ public class Main {
         System.out.println("-------------------------------");
 
         System.out.println("Удаление по индетификатору");
-        System.out.println(taskManager.getAllTasks());
+        System.out.println(taskManager.getTasks());
         taskManager.removeSubtaskById(subtask1Id);
-        System.out.println(taskManager.getAllSubtasks());
+        System.out.println(taskManager.getSubtasks());
         taskManager.removeEpicById(epicId2);
-        System.out.println(taskManager.getAllEpics());
-        System.out.println(taskManager.getAllSubtasks());
+        System.out.println(taskManager.getEpics());
+        System.out.println(taskManager.getSubtasks());
         System.out.println("-------------------------------");
         taskManager.removeTaskById(task2Id);
         System.out.println(taskManager.getHistory());
@@ -91,12 +91,12 @@ public class Main {
         System.out.println("-------------------------------");
         System.out.println("Полное удаление");
         taskManager.removeTasks();
-        System.out.println(taskManager.getAllTasks());
+        System.out.println(taskManager.getTasks());
         taskManager.removeSubtasks();
-        System.out.println(taskManager.getAllSubtasks());
-        System.out.println(taskManager.getAllEpics());
+        System.out.println(taskManager.getSubtasks());
+        System.out.println(taskManager.getEpics());
         taskManager.removeEpics();
-        System.out.println(taskManager.getAllEpics());
+        System.out.println(taskManager.getEpics());
         System.out.println(taskManager.getHistory());
         System.out.println("-------------------------------");
     }
