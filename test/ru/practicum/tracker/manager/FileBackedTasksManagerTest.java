@@ -18,7 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FileBackedTasksManagerTest extends TaskManagerTest {
     FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager(new File("tasks.txt"));
@@ -72,7 +73,6 @@ public class FileBackedTasksManagerTest extends TaskManagerTest {
         assertEquals(fileBackedTasksManager.getSubtasks(), loadedManager.getSubtasks(), "Список задач не совпадает");
         assertEquals(fileBackedTasksManager.getEpics(), loadedManager.getEpics(), "Список задач не совпадает");
         assertEquals(fileBackedTasksManager.getHistory(), loadedManager.getHistory(), "Список истории не совпадает");
-       // assertNull(task2Id);
     }
 
     @Test

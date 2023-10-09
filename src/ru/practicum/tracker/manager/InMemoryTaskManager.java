@@ -1,10 +1,19 @@
 package ru.practicum.tracker.manager;
 
 import ru.practicum.tracker.exception.TaskValidateException;
-import ru.practicum.tracker.tasks.*;
+import ru.practicum.tracker.tasks.Epic;
+import ru.practicum.tracker.tasks.Status;
+import ru.practicum.tracker.tasks.Subtask;
+import ru.practicum.tracker.tasks.Task;
+import ru.practicum.tracker.tasks.TaskType;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.TreeSet;
+import java.util.List;
+import java.util.Collections;
 
 public class InMemoryTaskManager implements TaskManager {
     private long generatorId = 0;
@@ -12,6 +21,7 @@ public class InMemoryTaskManager implements TaskManager {
     private final HashMap<Long, Task> tasks = new HashMap<>();
     private final HashMap<Long, Subtask> subtasks = new HashMap<>();
     private final HistoryManager historyManager = Managers.getDefaultHistory();
+
     protected final TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.nullsLast((o1, o2) -> {
         if (o1.getStartTime() != null && o2.getStartTime() != null) {
             return o1.getStartTime().compareTo(o2.getStartTime());
