@@ -8,4 +8,8 @@ public class Managers {
     public static HistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
     }
+
+/*    public static TaskManager getHttpTaskManager(String Url) {
+        return new HttpTaskManager(Url);
+    }*/
 }

@@ -1,14 +1,26 @@
 package ru.practicum.tracker.tasks;
 
+import ru.practicum.tracker.tasks.models.Status;
+import ru.practicum.tracker.tasks.models.TaskType;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Subtask extends Task {
-    private final long epicId;
+    private long epicId;
 
 
+    public Subtask() {
+
+    }
     public Subtask(String name, String description, Status status, Long epicId) {
         super(name, description, status);
+        this.epicId = epicId;
+    }
+
+
+    public Subtask(String name, String description, Status status, LocalDateTime startTime, Long duration, Long epicId) {
+        super(name, description, status, startTime, duration);
         this.epicId = epicId;
     }
 
@@ -98,5 +110,9 @@ public class Subtask extends Task {
     @Override
     public void setDuration(long duration) {
         super.setDuration(duration);
+    }
+
+    public void setEpicId(long epicId) {
+        this.epicId = epicId;
     }
 }

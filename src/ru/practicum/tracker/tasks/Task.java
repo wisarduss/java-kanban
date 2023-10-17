@@ -1,8 +1,9 @@
 package ru.practicum.tracker.tasks;
 
-import java.time.Duration;
+import ru.practicum.tracker.tasks.models.Status;
+import ru.practicum.tracker.tasks.models.TaskType;
+
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Objects;
 
 public class Task {
@@ -13,6 +14,8 @@ public class Task {
     protected TaskType taskType;
     protected LocalDateTime startTime;
     protected Long duration;
+
+    public Task() {}
 
     public Task(String name, String description, Status status) {
         this.name = name;

@@ -2,10 +2,10 @@ package ru.practicum.tracker.manager;
 
 import ru.practicum.tracker.exception.TaskValidateException;
 import ru.practicum.tracker.tasks.Epic;
-import ru.practicum.tracker.tasks.Status;
+import ru.practicum.tracker.tasks.models.Status;
 import ru.practicum.tracker.tasks.Subtask;
 import ru.practicum.tracker.tasks.Task;
-import ru.practicum.tracker.tasks.TaskType;
+import ru.practicum.tracker.tasks.models.TaskType;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,9 +17,9 @@ import java.util.Collections;
 
 public class InMemoryTaskManager implements TaskManager {
     private long generatorId = 0;
-    private final HashMap<Long, Epic> epics = new HashMap<>();
-    private final HashMap<Long, Task> tasks = new HashMap<>();
-    private final HashMap<Long, Subtask> subtasks = new HashMap<>();
+    protected final HashMap<Long, Epic> epics = new HashMap<>();
+    protected final HashMap<Long, Task> tasks = new HashMap<>();
+    protected final HashMap<Long, Subtask> subtasks = new HashMap<>();
     private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     protected final TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.nullsLast((o1, o2) -> {
@@ -102,15 +102,15 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Long addNewSubtask(Subtask subtask) {
-        validate(subtask);
+        //validate(subtask);
         Epic epic = epics.get(subtask.getEpicId());
         if (epic == null) {
             return null;
         }
         subtask.setId(generateId());
         subtasks.put(subtask.getId(), subtask);
-        prioritizedTasks.add(subtask);
         epic.addSubtaskId(subtask.getId());
+        prioritizedTasks.add(subtask);
         calculateDurationForEpic(subtask.getEpicId());
         calculateStartTimeForEpic(subtask.getEpicId());
         calculateEndTimeForEpic(subtask.getEpicId());
@@ -291,9 +291,11 @@ public class InMemoryTaskManager implements TaskManager {
         Epic epic = epics.get(epicId);
         if (epic != null) {
             ArrayList<Long> subtaskIds = epic.getSubtasksIds();
-            for (Long id : subtaskIds) {
-                historyManager.remove(id);
-                subtasks.remove(id);
+            if (subtaskIds != null) {
+                for (Long id : subtaskIds) {
+                    historyManager.remove(id);
+                    subtasks.remove(id);
+                }
             }
             historyManager.remove(epicId);
             epics.remove(epicId);
@@ -357,5 +359,10 @@ public class InMemoryTaskManager implements TaskManager {
         if (result > 0) {
             throw new TaskValidateException("Задача пересекается");
         }
+    }
+
+    @Override
+    public TreeSet<Task> getPrioritizedTasks() {
+        return prioritizedTasks;
     }
 }

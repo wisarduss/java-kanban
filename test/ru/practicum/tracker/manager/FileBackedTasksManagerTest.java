@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import ru.practicum.tracker.exception.ManagerSaveException;
 import ru.practicum.tracker.exception.TaskValidateException;
 import ru.practicum.tracker.tasks.Epic;
-import ru.practicum.tracker.tasks.Status;
+import ru.practicum.tracker.tasks.models.Status;
 import ru.practicum.tracker.tasks.Subtask;
 import ru.practicum.tracker.tasks.Task;
 
@@ -21,7 +21,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class FileBackedTasksManagerTest extends TaskManagerTest {
+public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
     FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager(new File("tasks.txt"));
 
     @Test

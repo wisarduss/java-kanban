@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import ru.practicum.tracker.tasks.Status;
+import ru.practicum.tracker.tasks.models.Status;
 import ru.practicum.tracker.tasks.Task;
 
 import java.time.LocalDateTime;

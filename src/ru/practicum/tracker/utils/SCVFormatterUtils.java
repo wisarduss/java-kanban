@@ -1,9 +1,10 @@
-package ru.practicum.tracker.manager;
+package ru.practicum.tracker.utils;
 
-import ru.practicum.tracker.tasks.Status;
+import ru.practicum.tracker.manager.HistoryManager;
+import ru.practicum.tracker.tasks.models.Status;
 import ru.practicum.tracker.tasks.Subtask;
 import ru.practicum.tracker.tasks.Task;
-import ru.practicum.tracker.tasks.TaskType;
+import ru.practicum.tracker.tasks.models.TaskType;
 import ru.practicum.tracker.tasks.Epic;
 
 import java.time.LocalDateTime;

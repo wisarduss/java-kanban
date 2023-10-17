@@ -1,12 +1,19 @@
 package ru.practicum.tracker.tasks;
 
+import ru.practicum.tracker.tasks.models.Status;
+import ru.practicum.tracker.tasks.models.TaskType;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Epic extends Task {
-    private final ArrayList<Long> subtasksIds;
+    private ArrayList<Long> subtasksIds;
     private LocalDateTime endTime;
+
+    public Epic() {
+        subtasksIds = new ArrayList<>();
+    }
 
     public Epic(long id, TaskType taskType, String name, Status status, String description,
                 LocalDateTime startTime, Long duration) {
@@ -40,6 +47,9 @@ public class Epic extends Task {
     }
 
     public void addSubtaskId(long subtaskId) {
+        if (subtasksIds == null) {
+            subtasksIds = new ArrayList<>();
+        }
         subtasksIds.add(subtaskId);
     }
 

@@ -5,6 +5,7 @@ import ru.practicum.tracker.tasks.Subtask;
 import ru.practicum.tracker.tasks.Task;
 
 import java.util.List;
+import java.util.TreeSet;
 
 public interface TaskManager {
 
@@ -56,5 +57,5 @@ public interface TaskManager {
 
     void calculateEndTimeForEpic(long epicId);
 
-
+    TreeSet<Task> getPrioritizedTasks();
 }

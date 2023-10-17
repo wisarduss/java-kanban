@@ -4,8 +4,9 @@ import ru.practicum.tracker.exception.ManagerSaveException;
 import ru.practicum.tracker.tasks.Epic;
 import ru.practicum.tracker.tasks.Subtask;
 import ru.practicum.tracker.tasks.Task;
-import ru.practicum.tracker.tasks.TaskType;
-import ru.practicum.tracker.tasks.Status;
+import ru.practicum.tracker.tasks.models.TaskType;
+import ru.practicum.tracker.tasks.models.Status;
+import ru.practicum.tracker.utils.SCVFormatterUtils;
 
 
 import java.io.File;
@@ -22,11 +23,17 @@ import java.util.Objects;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
     private static final String PATH = "tasks.txt";
-    private final File file;
+    private File file;
+
+    public FileBackedTasksManager() {
+    }
 
     public FileBackedTasksManager(File file) {
         this.file = file;
     }
+
+
+
 
     public static FileBackedTasksManager loadFromFile(File file) {
         FileBackedTasksManager newTaskManager = new FileBackedTasksManager(file);
