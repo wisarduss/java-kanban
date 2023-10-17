@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class HttpTaskManager  extends FileBackedTasksManager{
+public class HttpTaskManager extends FileBackedTasksManager {
     private static final String TASK = "task";
     private static final String EPIC = "epic";
     private static final String SUBTASK = "subtask";
@@ -28,7 +28,6 @@ public class HttpTaskManager  extends FileBackedTasksManager{
             .registerTypeAdapter(Epic.class, new EpicConverterFromGson())
             .registerTypeAdapter(Subtask.class, new SubtaskConverterFromGson())
             .create();
-
 
 
     public HttpTaskManager() {
@@ -49,12 +48,14 @@ public class HttpTaskManager  extends FileBackedTasksManager{
         }
         String epicGson = client.load(EPIC);
         if (epicGson != null) {
-            List<Epic> uploadedEpic = gson.fromJson(epicGson, new TypeToken<ArrayList<Epic>>() {});
-            uploadedEpic.forEach(epic -> epics.put(epic.getId(),epic));
+            List<Epic> uploadedEpic = gson.fromJson(epicGson, new TypeToken<ArrayList<Epic>>() {
+            });
+            uploadedEpic.forEach(epic -> epics.put(epic.getId(), epic));
         }
         String subtaskGson = client.load(SUBTASK);
         if (subtaskGson != null) {
-            List<Subtask> uploadedSubtasks = gson.fromJson(subtaskGson,new TypeToken<ArrayList<Subtask>>() {});
+            List<Subtask> uploadedSubtasks = gson.fromJson(subtaskGson, new TypeToken<ArrayList<Subtask>>() {
+            });
             uploadedSubtasks.forEach(subtask -> {
                 subtasks.put(subtask.getId(), subtask);
                 prioritizedTasks.add(subtask);
@@ -63,7 +64,8 @@ public class HttpTaskManager  extends FileBackedTasksManager{
 
         String historyGson = client.load(HISTORY);
         if (historyGson != null) {
-            List<Task> uploadedHistory = gson.fromJson(historyGson,new TypeToken<ArrayList<Task>>() {});
+            List<Task> uploadedHistory = gson.fromJson(historyGson, new TypeToken<ArrayList<Task>>() {
+            });
             uploadedHistory.forEach(task -> getHistoryManager().addTask(task));
 
         }
@@ -83,11 +85,12 @@ public class HttpTaskManager  extends FileBackedTasksManager{
             }
         }
     }
+
     @Override
     public void save() {
         client.put(TASK, gson.toJson(tasks.values()));
-        client.put(EPIC,gson.toJson(epics.values()));
-        client.put(SUBTASK,gson.toJson(subtasks.values()));
-        client.put(HISTORY,gson.toJson(getHistoryManager().getHistory()));
+        client.put(EPIC, gson.toJson(epics.values()));
+        client.put(SUBTASK, gson.toJson(subtasks.values()));
+        client.put(HISTORY, gson.toJson(getHistoryManager().getHistory()));
     }
 }

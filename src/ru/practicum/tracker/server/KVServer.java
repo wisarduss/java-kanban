@@ -44,7 +44,6 @@ public class KVServer {
                     h.sendResponseHeaders(404, 0);
                     return;
                 }
-
                 sendText(h, data.get(key));
                 System.out.println("Успешно отправили значение по ключу");
             } else {

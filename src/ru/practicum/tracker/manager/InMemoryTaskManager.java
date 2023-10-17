@@ -102,7 +102,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Long addNewSubtask(Subtask subtask) {
-        //validate(subtask);
+        validate(subtask);
         Epic epic = epics.get(subtask.getEpicId());
         if (epic == null) {
             return null;

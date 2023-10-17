@@ -33,8 +33,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
 
-
-
     public static FileBackedTasksManager loadFromFile(File file) {
         FileBackedTasksManager newTaskManager = new FileBackedTasksManager(file);
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
