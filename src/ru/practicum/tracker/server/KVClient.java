@@ -9,12 +9,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class KVClient {
-    private static final String URL = "http://localhost:8078/";
+    private final String url;
 
     private String apiToken;
     private final HttpClient httpClient;
 
-    public KVClient() {
+    public KVClient(final String url) {
+        this.url = url;
         httpClient = HttpClient.newHttpClient();
         apiToken = register();
     }
@@ -22,7 +23,7 @@ public class KVClient {
     public String load(String key) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(URL + "load/" + key + "?API_TOKEN=" + apiToken))
+                    .uri(URI.create(url + "load/" + key + "?API_TOKEN=" + apiToken))
                     .GET()
                     .build();
 
@@ -44,7 +45,7 @@ public class KVClient {
     public void put(String key, String value) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(URL + "save/" + key + "?API_TOKEN=" + apiToken))
+                    .uri(URI.create(url + "save/" + key + "?API_TOKEN=" + apiToken))
                     .POST(HttpRequest.BodyPublishers.ofString(value))
                     .build();
 
@@ -61,7 +62,7 @@ public class KVClient {
     protected String register() {
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(URL + "register"))
+                    .uri(URI.create(url + "register"))
                     .GET()
                     .build();
 

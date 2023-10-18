@@ -9,7 +9,7 @@ import ru.practicum.tracker.tasks.Task;
 
 import java.time.LocalDateTime;
 
-public class InMemoryTaskManagerTest extends TaskManagerTest {
+public class InMemoryTaskManagerTest extends TaskManagerTest<TaskManager> {
     @Test
     public void testGenerateId() {
         Task task = new Task("test", "test disc", Status.IN_PROGRESS,

@@ -7,7 +7,12 @@ import ru.practicum.tracker.server.KVClient;
 import ru.practicum.tracker.tasks.Epic;
 import ru.practicum.tracker.tasks.Subtask;
 import ru.practicum.tracker.tasks.Task;
-import ru.practicum.tracker.utils.*;
+import ru.practicum.tracker.utils.EpicConverterToGson;
+import ru.practicum.tracker.utils.SubtaskConverterToGson;
+import ru.practicum.tracker.utils.TaskConverterFromGson;
+import ru.practicum.tracker.utils.TaskConverterToGson;
+import ru.practicum.tracker.utils.EpicConverterFromGson;
+import ru.practicum.tracker.utils.SubtaskConverterFromGson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +37,7 @@ public class HttpTaskManager extends FileBackedTasksManager {
 
     public HttpTaskManager() {
         super();
-        this.client = new KVClient();
+        this.client = new KVClient("http://localhost:8078/");
         load();
     }
 

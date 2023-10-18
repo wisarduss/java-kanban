@@ -32,7 +32,7 @@ class HttpTaskManagerTest extends TaskManagerTest<HttpTaskManager> {
 
     @Test
     public void testLoadFromHttpServer() {
-        HttpTaskManager httpTaskManager = new HttpTaskManager();
+        TaskManager httpTaskManager = Managers.getDefault();
 
         Epic epic1 = new Epic("Переезд", "Нужно сделать все необходимое для переезда");
         long epicId1 = httpTaskManager.addNewEpic(epic1);

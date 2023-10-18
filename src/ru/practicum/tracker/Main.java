@@ -1,7 +1,6 @@
 package ru.practicum.tracker;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import ru.practicum.tracker.manager.Managers;
 import ru.practicum.tracker.manager.TaskManager;
 import ru.practicum.tracker.tasks.Epic;
@@ -9,19 +8,10 @@ import ru.practicum.tracker.tasks.models.Status;
 import ru.practicum.tracker.tasks.Subtask;
 import ru.practicum.tracker.tasks.Task;
 
-import java.time.LocalDateTime;
 
 public class Main {
-    public static void main(String[] args) {
-        TaskManager taskManager = Managers.getDefault();
-        Subtask subtask = new Subtask("name", "description", Status.NEW, 1L, LocalDateTime.now(), 60L);
-        taskManager.addNewSubtask(subtask);
-        Gson gson = new Gson();
-        String response = gson.toJson(subtask);
-        System.out.println(response);
-    }
 
-/*    public static void main(String[] args) {
+    public static void main(String[] args) {
         TaskManager taskManager = Managers.getDefault();
 
 
@@ -111,5 +101,5 @@ public class Main {
         System.out.println(taskManager.getEpics());
         System.out.println(taskManager.getHistory());
         System.out.println("-------------------------------");
-    }*/
+    }
 }

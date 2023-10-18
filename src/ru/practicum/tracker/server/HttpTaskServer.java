@@ -94,24 +94,24 @@ public class HttpTaskServer {
                 writeResponse(exchange, "Список tasks пустой", 404);
             }
         } catch (IOException exp) {
-            throw new RuntimeException("Ошибка в методе getTasks()");
+            throw new HttpTaskServerException("Ошибка в методе getTasks()");
         }
     }
 
     private void addTask(HttpExchange exchange)  {
         try {
             String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
-            Task task = gson.fromJson(body, Task.class);
+            Task newTask = gson.fromJson(body, Task.class);
             JsonObject jsonObject = extractJsonObject(exchange, body);
 
             int id = jsonObject.get("id").getAsInt();
             if (id == 0) {
-                httpTaskManager.addNewTask(task);
+                httpTaskManager.addNewTask(newTask);
                 writeResponse(exchange, "Task успешно добавлена", 200);
             } else {
-                for (Task task1 : httpTaskManager.getTasks()) {
-                    if (task1.getId() == id) {
-                        httpTaskManager.updateTask(task);
+                for (Task task : httpTaskManager.getTasks()) {
+                    if (task.getId() == id) {
+                        httpTaskManager.updateTask(newTask);
                         writeResponse(exchange, "Task c id=" + id + " успешно обновлена", 200);
                     }
                 }
@@ -151,7 +151,7 @@ public class HttpTaskServer {
             long id = Integer.parseInt(exchange.getRequestURI().getQuery().substring(3));
 
             for (Task task : httpTaskManager.getTasks()) {
-                if ( task.getId() == id) {
+                if (task.getId() == id) {
                     httpTaskManager.removeTaskById(id);
                     writeResponse(exchange, "Task c id=" + id + " удален", 200);
                     return;
@@ -178,17 +178,17 @@ public class HttpTaskServer {
     private void addEpic(HttpExchange exchange) {
         try {
             String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
-            Epic epic = gson.fromJson(body, Epic.class);
+            Epic newEpic = gson.fromJson(body, Epic.class);
             JsonObject jsonObject = extractJsonObject(exchange, body);
 
             int id = jsonObject.get("id").getAsInt();
             if (id == 0) {
-                httpTaskManager.addNewEpic(epic);
+                httpTaskManager.addNewEpic(newEpic);
                 writeResponse(exchange, "Epic добавлен", 200);
             } else {
-                for (Epic epic1 : httpTaskManager.getEpics()) {
-                    if (epic1.getId() == id) {
-                        httpTaskManager.updateEpic(epic);
+                for (Epic epic : httpTaskManager.getEpics()) {
+                    if (epic.getId() == id) {
+                        httpTaskManager.updateEpic(newEpic);
                         writeResponse(exchange, "Epic c id=" + id + " обновлен", 200);
 
                     }
@@ -205,8 +205,8 @@ public class HttpTaskServer {
         try {
             long id = Integer.parseInt(exchange.getRequestURI().getQuery().substring(3));
             if (httpTaskManager.getEpicById(id) != null) {
-                String resp = gson.toJson(httpTaskManager.getEpicById(id));
-                writeResponse(exchange, resp, 200);
+                String epicToGson = gson.toJson(httpTaskManager.getEpicById(id));
+                writeResponse(exchange, epicToGson, 200);
             } else {
                 writeResponse(exchange, "Epic c id=" + id + " не найден", 404);
             }
@@ -256,7 +256,7 @@ public class HttpTaskServer {
     private void addSubtask(HttpExchange exchange) {
         try {
             String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
-            Subtask subtask = gson.fromJson(body, Subtask.class);
+            Subtask newSubtask = gson.fromJson(body, Subtask.class);
             JsonObject jsonObject = extractJsonObject(exchange, body);
 
             int id = jsonObject.get("id").getAsInt();
@@ -267,7 +267,7 @@ public class HttpTaskServer {
                 }
                 for (Epic epic : httpTaskManager.getEpics()) {
                     if (epic.getId() == epicId) {
-                        httpTaskManager.addNewSubtask(subtask);
+                        httpTaskManager.addNewSubtask(newSubtask);
                         writeResponse(exchange, "subtask добавлен под эпиком с epicID=" + epicId
                                 , 200);
                     }
@@ -275,11 +275,11 @@ public class HttpTaskServer {
                 writeResponse(exchange, " epicId=" + epicId + ", не существует", 400);
             }
 
-            for (Subtask subtask1 : httpTaskManager.getSubtasks()) {
-                if ( subtask1.getId() == id)  {
+            for (Subtask subtask : httpTaskManager.getSubtasks()) {
+                if ( subtask.getId() == id)  {
                     for (Epic epic : httpTaskManager.getEpics()) {
                         if (epic.getId() == epicId) {
-                            httpTaskManager.updateSubtask(subtask);
+                            httpTaskManager.updateSubtask(newSubtask);
                             writeResponse(exchange, "subtask с id=" + id +  " обновлен"
                                     , 200);
                         }
